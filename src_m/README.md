@@ -1,3 +1,3 @@
-#Source files for the project.
+# Source files for the project.
 
 Contains source files for code and testbenches.
