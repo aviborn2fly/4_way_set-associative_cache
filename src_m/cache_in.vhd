@@ -88,12 +88,13 @@ begin
  iset (1 downto 0)<= iaddr(1 downto 0);
  idata (3 downto 0)<= inst(3 downto 0);
 
- 
+ --initial testing
  --result(11)<=irw;
  --result(10)<=ilock;
  --result(9 downto 4)<=iaddr;
--- result(3 downto 0)<=idata;
--- result2<=cache(0);
+ -- result(3 downto 0)<=idata;
+ -- result2<=cache(0);
+ --end testing
  
 process(clk)
 begin
@@ -109,6 +110,7 @@ if (irw='0') then
      -- data found in set0
      --do read operation
        odata<=cache(to_integer(unsigned(caddr)))(3 downto 0);
+       --check lock bits from instruction if needs to change the lock
       if(ilock='1') then
                    if(taglock0 ="0") then
                    taglock0<="1";
@@ -191,9 +193,10 @@ if (irw='0') then
    end if;
    else
     if (iset="01") then
-            -- this tag is locked hence write operation will not be performed
+           
       if(taglock1="1") then 
-         -- end if;
+          -- this tag is locked hence write operation will not be performed
+            --write code to show that tag is locked 
       else 
         --check last set where previous write operation was performed
           caddr(1 downto 0)<=taglastset1;
